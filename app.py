@@ -29,7 +29,7 @@ vehicles_us['is_4wd'] = vehicles_us.groupby('model')['is_4wd'].transform(lambda 
 st.title("Car Dealership Explorer")
 
 st.markdown("""
-This App perfoms a simple comparation in between car models and prices
+This App perfoms a simple comparation in between car models and prices base on certain conditions
 """)
 
 selected_model = st.selectbox("Select a model:", ['All'] + sorted(vehicles_us['model'].unique()))

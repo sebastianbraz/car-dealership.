@@ -7,6 +7,25 @@ def load_data():
     
 vehicles_us = load_data()
 
+#Filling missing values: 
+#Model_year
+vehicles_us['model_year'].fillna(vehicles_us['model_year'].median(), inplace=True)
+vehicles_us['model_year'] = vehicles_us['model_year'].astype(int)  
+
+#Cylinders
+vehicles_us['cylinders'] = vehicles_us.groupby('model')['cylinders'].transform(lambda x: x.fillna(x.mode()[0] if not x.mode().empty else 4))
+
+#Odometer
+vehicles_us["odometer"] = pd.to_numeric(vehicles_us["odometer"], errors="coerce")
+vehicles_us["odometer"].fillna(vehicles_us["odometer"].mean(), inplace=True)
+vehicles_us["odometer"] = vehicles_us["odometer"].round(0)  
+
+#Color 
+vehicles_us['paint_color'] = vehicles_us['paint_color'].fillna('No info')
+
+#4wd
+vehicles_us['is_4wd'] = vehicles_us.groupby('model')['is_4wd'].transform(lambda x: x.fillna(x.mode()[0] if not x.mode().empty else 0))
+
 st.title("Car Dealership Explorer")
 
 st.markdown("""

@@ -41,17 +41,6 @@ if selected_condition:
     filtered_cars_df = filtered_cars_df[filtered_cars_df['condition'].isin(selected_condition)]
 st.write(filtered_cars_df)
 
-st.header("Distribution per year")
-#Histogram: Distribution model_year 
-fig_hist_year = px.histogram(
-    filtered_cars_df,
-    x="model_year",  
-    nbins=20,  
-    title="Distribution of Vehicles by Model Year",
-    labels={"model_year": "Model Year"},
-)
-st.plotly_chart(fig_hist_year)
-
 st.header("Price per Model")
 #Scatterplot: price vs model
 fig_scatter_model = px.scatter(
@@ -59,20 +48,29 @@ fig_scatter_model = px.scatter(
     x="model",  
     y="price",  
     color="condition",  
-    title="Price vs Model",
     labels={"price": "Price ($)", "model": "Model", "condition": "Condition"},
     opacity=0.6  
 )
 st.plotly_chart(fig_scatter_model)
 
-st.header("Price per Car Condition")
+st.header("Distribution of Vehicles by Year of Manufacture")
+#Histogram: Distribution model_year 
+fig_hist_year = px.histogram(
+    filtered_cars_df,
+    x="model_year",  
+    nbins=20,  
+    labels={"model_year": "Model Year"},
+)
+st.plotly_chart(fig_hist_year)
+
+
+st.header("Price Distribution by Condition")
 #Histogram: price vs condition 
 fig_hist_condition = px.histogram(
     filtered_cars_df, 
     x="price",  
     nbins=30,  
     color="condition",  
-    title="Price Distribution by Condition",
     labels={"price": "Price ($)", "condition": "Condition"},
 )
 st.plotly_chart(fig_hist_condition)
@@ -84,7 +82,6 @@ fig_scatter = px.scatter(
     x="condition", 
     y="price", 
     color="condition",  
-    title="Price vs Condition",
     labels={"price": "Price ($)", "condition": "Condition"},
     opacity=0.6
 )

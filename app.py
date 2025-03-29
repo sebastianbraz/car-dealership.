@@ -12,6 +12,11 @@ vehicles_us = load_data()
 vehicles_us['model_year'].fillna(vehicles_us['model_year'].median(), inplace=True)
 vehicles_us['model_year'] = vehicles_us['model_year'].astype(int)  
 
+#Consistent Data Types 
+vehicles_us['price'] = pd.to_numeric(vehicles_us['price'], errors='coerce')  # Convert to numeric, forcing errors to NaN
+vehicles_us['price'] = vehicles_us['price'].astype('float64') 
+ 
+# Explicitly set the dtype
 #Cylinders
 vehicles_us['cylinders'] = vehicles_us.groupby('model')['cylinders'].transform(lambda x: x.fillna(x.mode()[0] if not x.mode().empty else 4))
 

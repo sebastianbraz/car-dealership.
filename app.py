@@ -1,6 +1,7 @@
 import pandas as pd
 import streamlit as st
 import plotly.express as px
+import numpy as np
 
 def load_data():
    return pd.read_csv("vehicles_us.csv")
@@ -13,7 +14,7 @@ vehicles_us['model_year'].fillna(vehicles_us['model_year'].median(), inplace=Tru
 vehicles_us['model_year'] = vehicles_us['model_year'].astype(int)  
 
 vehicles_us['model_year'] = pd.to_numeric(vehicles_us['model_year'], errors='coerce')
-vehicles_us['model_year'] = vehicles_us['model_year'].astype('int64')
+vehicles_us['model_year'] = vehicles_us['model_year'].astype(np.int64)
 
 vehicles_us['price'] = pd.to_numeric(vehicles_us['price'], errors='coerce')
 vehicles_us['price'] = vehicles_us['price'].astype('float64') 

@@ -11,8 +11,6 @@ vehicles_us = load_data()
 #Filling missing values: 
 #Model_year
 vehicles_us['model_year'].fillna(vehicles_us['model_year'].median(), inplace=True)
-vehicles_us['model_year'] = pd.to_numeric(vehicles_us['model_year'], errors='coerce')
-vehicles_us['model_year'] = vehicles_us['model_year'].astype(np.int64)
 
 vehicles_us['price'] = pd.to_numeric(vehicles_us['price'], errors='coerce')
 vehicles_us['price'] = vehicles_us['price'].astype('float64') 

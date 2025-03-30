@@ -2,8 +2,6 @@ import pandas as pd
 import streamlit as st
 import plotly.express as px
 import numpy as np
-import pyarrow as pa 
-import pyarrow.parquet as pq
 
 def load_data():
    return pd.read_csv("vehicles_us.csv")
@@ -15,19 +13,9 @@ vehicles_us = load_data()
 vehicles_us['model_year'].fillna(vehicles_us['model_year'].median(), inplace=True)
 
 #price
+
 vehicles_us['price'] = pd.to_numeric(vehicles_us['price'], errors='coerce').astype(np.float64)
 vehicles_us['price'].fillna(0.0, inplace=True)  
-
-schema = pa.schema([
-    ('price', pa.float64()),  
-])
-
-table = pa.Table.from_pandas(vehicles_us, schema=schema)
-pq.write_table(table, 'output.parquet')
-
-#days_listed
-vehicles_us['days_listed'] = pd.to_numeric(vehicles_us['days_listed'], errors='coerce')
-vehicles_us['days_listed'] = vehicles_us['days_listed'].astype('int64') 
 
 #Cylinders
 vehicles_us['cylinders'] = vehicles_us.groupby('model')['cylinders'].transform(lambda x: x.fillna(x.mode()[0] if not x.mode().empty else 4))

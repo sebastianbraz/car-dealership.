@@ -1,4 +1,4 @@
-# project-
+# car-dealership.
 Car Dealership Explorer is a web application that enables users to interactively explore a dataset of U.S. vehicles. 
 The app cleans the raw data, handles missing values, and provides several interactive visualizations. 
 Users can filter data by car models, manufacturing years, conditions and explore price distributions.

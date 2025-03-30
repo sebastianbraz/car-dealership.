@@ -47,7 +47,7 @@ if selected_model != "All":
     filtered_cars_df = filtered_cars_df[filtered_cars_df['model'] == selected_model]
 if selected_condition:
     filtered_cars_df = filtered_cars_df[filtered_cars_df['condition'].isin(selected_condition)]
-st.write(filtered_cars_df.astype(str))
+#st.write(filtered_cars_df.astype(str))
 
 st.header("Price per Model")
 #Scatterplot: price vs model

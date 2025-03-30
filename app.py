@@ -18,7 +18,7 @@ vehicles_us['model_year'].fillna(vehicles_us['model_year'].median(), inplace=Tru
 vehicles_us['price'].fillna(0.0, inplace=True)  
 
 #vehicles_us['days_listed'] = pd.to_numeric(vehicles_us['days_listed'], errors='coerce').astype('str')
-vehicles_us['days_listed'].fillna(0.0, inplace=True)  
+vehicles_us['days_listed'].fillna(0.0, inplace=True) 
 
 #Cylinders
 vehicles_us['cylinders'] = vehicles_us.groupby('model')['cylinders'].transform(lambda x: x.fillna(x.mode()[0] if not x.mode().empty else 4))
@@ -47,7 +47,7 @@ if selected_model != "All":
     filtered_cars_df = filtered_cars_df[filtered_cars_df['model'] == selected_model]
 if selected_condition:
     filtered_cars_df = filtered_cars_df[filtered_cars_df['condition'].isin(selected_condition)]
-st.write(filtered_cars_df)
+#st.write(filtered_cars_df)
 
 st.header("Price per Model")
 #Scatterplot: price vs model

@@ -12,6 +12,10 @@ vehicles_us = load_data()
 #Model_year
 vehicles_us['model_year'].fillna(vehicles_us['model_year'].median(), inplace=True)
 
+#price
+vehicles_us['price'] = pd.to_numeric(vehicles_us['price'])  
+vehicles_us['price'] = vehicles_us['price'].astype('float64')
+
 #Cylinders
 vehicles_us['cylinders'] = vehicles_us.groupby('model')['cylinders'].transform(lambda x: x.fillna(x.mode()[0] if not x.mode().empty else 4))
 

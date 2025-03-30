@@ -17,7 +17,7 @@ vehicles_us['model_year'].fillna(vehicles_us['model_year'].median(), inplace=Tru
 vehicles_us['price'] = pd.to_numeric(vehicles_us['price'], errors='coerce').astype('str')
 vehicles_us['price'].fillna(0.0, inplace=True)  
 
-vehicles_us['days_listed'] = pd.to_numeric(vehicles_us['days_listed'], errors='coerce').astype(np.float64)
+vehicles_us['days_listed'] = pd.to_numeric(vehicles_us['days_listed'], errors='coerce').astype('str')
 vehicles_us['days_listed'].fillna(0.0, inplace=True)  
 
 #Cylinders

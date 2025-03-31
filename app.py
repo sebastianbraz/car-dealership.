@@ -10,23 +10,35 @@ vehicles_us = load_data()
 
 #Filling missing values: 
 #Model_year
+vehicles_us['model_year'] = vehicles_us.groupby('model')['model_year'].transform(lambda x: x.fillna(x.median()))
 vehicles_us['model_year'].fillna(vehicles_us['model_year'].median(), inplace=True)
+#Removing Outliers Model_year.
+Q1 = vehicles_us['model_year'].quantile(0.25)
+Q3 = vehicles_us['model_year'].quantile(0.75)
+IQR = Q3 - Q1
 
-#price
+lower_bound = Q1 - 1.5 * IQR
+upper_bound = Q3 + 1.5 * IQR
 
-#vehicles_us['price'] = pd.to_numeric(vehicles_us['price'], errors='coerce').astype('str')
-vehicles_us['price'].fillna(0.0, inplace=True)  
+vehicles_us = vehicles_us[(vehicles_us['model_year'] >= lower_bound) & (vehicles_us['model_year'] <= upper_bound)]
 
-#vehicles_us['days_listed'] = pd.to_numeric(vehicles_us['days_listed'], errors='coerce').astype('str')
-vehicles_us['days_listed'].fillna(0.0, inplace=True) 
+#Removing Outliers Price
+Q1 = vehicles_us['price'].quantile(0.25)
+Q3 = vehicles_us['price'].quantile(0.75)
+IQR = Q3 - Q1
+
+lower_bound = Q1 - 1.5 * IQR
+upper_bound = Q3 + 1.5 * IQR
+
+vehicles_us = vehicles_us[(vehicles_us['price'] >= lower_bound) & (vehicles_us['price'] <= upper_bound)]
 
 #Cylinders
-vehicles_us['cylinders'] = vehicles_us.groupby('model')['cylinders'].transform(lambda x: x.fillna(x.mode()[0] if not x.mode().empty else 4))
+vehicles_us['cylinders'] = vehicles_us.groupby('model')['cylinders'].transform(lambda x: x.fillna(x.median()))
+vehicles_us['cylinders'].fillna(vehicles_us['cylinders'].median(), inplace=True)
 
 #Odometer
-vehicles_us["odometer"] = pd.to_numeric(vehicles_us["odometer"], errors="coerce")
+vehicles_us['odometer'] = vehicles_us.groupby(['model_year', 'model'])['odometer'].transform(lambda x: x.fillna(x.mean()))
 vehicles_us["odometer"].fillna(vehicles_us["odometer"].mean(), inplace=True)
-vehicles_us["odometer"] = vehicles_us["odometer"].round(0)  
 
 #Color 
 vehicles_us['paint_color'] = vehicles_us['paint_color'].fillna('No info')

@@ -52,13 +52,13 @@ st.markdown("""
 This App perfoms a simple comparation in between car models and prices base on certain conditions
 """)
 
-#selected_model = st.selectbox("Select a model:", ['All'] + sorted(vehicles_us['model'].unique()))
-#selected_condition = st.multiselect("Select condition:", vehicles_us['condition'].unique())
-#filtered_cars_df = vehicles_us
-#if selected_model != "All":
-#    filtered_cars_df = filtered_cars_df[filtered_cars_df['model'] == selected_model]
-#if selected_condition:
-#    filtered_cars_df = filtered_cars_df[filtered_cars_df['condition'].isin(selected_condition)]
+selected_model = st.selectbox("Select a model:", ['All'] + sorted(vehicles_us['model'].unique()))
+selected_condition = st.multiselect("Select condition:", vehicles_us['condition'].unique())
+filtered_cars_df = vehicles_us
+if selected_model != "All":
+    filtered_cars_df = filtered_cars_df[filtered_cars_df['model'] == selected_model]
+if selected_condition:
+    filtered_cars_df = filtered_cars_df[filtered_cars_df['condition'].isin(selected_condition)]
 #st.write(filtered_cars_df.astype(str))
 
 st.header("Price per Model")
